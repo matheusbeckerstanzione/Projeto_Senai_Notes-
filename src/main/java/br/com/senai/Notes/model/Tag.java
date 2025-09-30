@@ -35,5 +35,4 @@ public class Tag {
 
     @Column(name = "data_criacao", nullable = false)
     private OffsetDateTime datacriacao;
-
-    }
+}

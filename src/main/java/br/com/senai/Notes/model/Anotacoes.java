@@ -26,7 +26,7 @@ public class Anotacoes {
     @Column(name = "anotacoes_id", nullable = false)
     private Integer anotacoesId;
 
-    @Column(name = "descriccao", nullable = false)
+    @Column(name = "descricao", nullable = false)
     private String descricao;
 
     @Column(name = "imagem_url", nullable = false)

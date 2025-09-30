@@ -2,6 +2,7 @@ package br.com.senai.Notes.Service;
 
 import br.com.senai.Notes.Repository.AnotacoesRepository;
 import br.com.senai.Notes.model.Anotacoes;
+import br.com.senai.Notes.model.Tag;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,10 @@ public class AnotacoesService {
         tExistente.setUsuario(tNovo.getUsuario());
 
         return anotacoesRepository.save(tExistente);
+    }
+
+    public List<Usuario> AnotacaoPorEmail(String email) {
+        return anotacoesRepository.findByUsuarioEmail(email);
     }
 
 }

@@ -67,7 +67,15 @@ public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody Anotacoes anota
 
         return ResponseEntity.ok(AnotacoesAtualizado);
     }
+    @GetMapping ("/{Email}")
+    public ResponseEntity<?> AnotacaoPorEmail(@PathVariable String Email) {
+       Anotacoes anotacoes = (Anotacoes) anotacoesService.AnotacaoPorEmail(Email);
 
-
-
+        if (anotacoes == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("anotação não encontrada!");
+        }
+        return ResponseEntity.ok(anotacoes);
     }
+
+}

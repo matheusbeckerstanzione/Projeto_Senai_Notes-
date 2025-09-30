@@ -2,6 +2,7 @@ package br.com.senai.Notes.Service;
 
 import br.com.senai.Notes.Repository.TagRepository;
 import br.com.senai.Notes.Repository.UsuarioRepository;
+import br.com.senai.Notes.dtos.CadastroTagDTO;
 import br.com.senai.Notes.model.Tag;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,11 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public Tag cadastrarTag(Tag tag) {
+    public Tag cadastrarTag(CadastroTagDTO dto){
+    Tag tag = new Tag();
+
+    tag.setNomeCompleto(dto.getNomeCompleto());
+
         return tagRepository.save(tag);
     }
 

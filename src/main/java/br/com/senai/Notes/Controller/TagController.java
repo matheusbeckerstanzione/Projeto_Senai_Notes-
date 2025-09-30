@@ -3,6 +3,7 @@ package br.com.senai.Notes.Controller;
 
 import br.com.senai.Notes.Service.TagService;
 import br.com.senai.Notes.Service.UsuarioService;
+import br.com.senai.Notes.dtos.CadastroTagDTO;
 import br.com.senai.Notes.model.Tag;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,9 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<Tag> cadastrarTag(@RequestBody Tag tag) {
-        tag = tagService.cadastrarTag(tag);
-        return ResponseEntity.status(HttpStatus.CREATED).body(tag);
+    public ResponseEntity<Tag> cadastrarTag(@RequestBody CadastroTagDTO tag) {
+        Tag t = tagService.cadastrarTag(tag);
+        return ResponseEntity.status(HttpStatus.CREATED).body(t);
     }
 
     @GetMapping("/{id}")

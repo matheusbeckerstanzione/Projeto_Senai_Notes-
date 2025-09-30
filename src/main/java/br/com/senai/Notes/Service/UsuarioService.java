@@ -1,41 +1,44 @@
 package br.com.senai.Notes.Service;
 
-import br.com.senai.Notes.Repository.UsuarioRepository;
 import br.com.senai.Notes.model.Usuario;
+import br.com.senai.Notes.Repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository repo) {
-        this.usuarioRepository = repo;
+    private final UsuarioRepository UsuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+
+
+    public UsuarioService(UsuarioRepository
+                                  UsuarioRepository, PasswordEncoder passwordEncoder) {
+        this.UsuarioRepository = UsuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
-    }
-
-
-    public Usuario cadastrarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        return UsuarioRepository.findAll();
     }
 
     public Usuario buscarPorId(Integer id) {
-        return usuarioRepository.findById(id).orElse(null);
+        return UsuarioRepository.findById(id).orElse(null);
     }
 
-    public Usuario deletarUsuario(Integer id) {
-        Usuario usuario = buscarPorId(id);
-        if (usuario == null) {
-            return null;
-        }
-        usuarioRepository.delete(usuario);
-        return usuario;
+    public Usuario cadastrar(Usuario t) {
+
+        String senhaCriptografada = passwordEncoder.encode(t.getSenha());
+
+        // Substitui a senha original pelo hash gerado
+        t.setSenha(senhaCriptografada);
+
+        return UsuarioRepository.save(t);
     }
-    public Usuario atualizarUsuario(Integer id, Usuario tNovo) {
+
+    public Usuario atualizar(Integer id, Usuario tNovo) {
         Usuario tExistente = buscarPorId(id);
 
         if (tExistente == null) {
@@ -46,7 +49,20 @@ public class UsuarioService {
         tExistente.setSenha(tNovo.getSenha());
         tExistente.setNomeCompleto(tNovo.getNomeCompleto());
 
-        return usuarioRepository.save(tExistente);
+        return UsuarioRepository.save(tExistente);
     }
+
+    public Usuario deletar(Integer id) {
+        Usuario tExistente = buscarPorId(id);
+
+        if (tExistente == null) {
+            return null;
+        }
+
+        UsuarioRepository.delete(tExistente);
+        return tExistente;
+    }
+
+
 
 }

@@ -1,6 +1,5 @@
 package br.com.senai.Notes.Controller;
 
-
 import br.com.senai.Notes.Service.UsuarioService;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.http.HttpStatus;
@@ -9,55 +8,52 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/usuario")
+
+
 public class UsuarioController {
-
     private final UsuarioService usuarioService;
-
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService){
         this.usuarioService = usuarioService;
 
     }
+
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuario() {
-        List<Usuario> Usuarios = usuarioService.listarTodos();
+        List<Usuario> Usuario = usuarioService.listarTodos();
+        return ResponseEntity.ok(Usuario);}
 
-        return ResponseEntity.ok(Usuarios);
-    }
-
-    @PostMapping
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
-        usuario = usuarioService.cadastrarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
-    }
-
+    // Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarUsuario(@PathVariable Integer id) {
-        Usuario usuario = usuarioService.buscarPorId(id);
+    public ResponseEntity<?> buscarUsuarioPorId(@PathVariable Integer id) {
+        Usuario Usuario = usuarioService.buscarPorId(id);
 
-        if (usuario == null) {
+        if (Usuario == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("usuário não encontrado!");
         }
 
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(Usuario);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarUsuario(@PathVariable Integer id) {
-        Usuario deletado = usuarioService.deletarUsuario(id);
 
-        if (deletado == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Não foi possível excluir, usuário não foi encontrado.");
+    // Inserir Novo
+    @PostMapping
+    public ResponseEntity<Usuario> inserirUsuario(@RequestBody Usuario Usuario) {
+        Usuario novoUsuario = usuarioService.cadastrar(Usuario);
+
+        if (novoUsuario == null) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok("Tipo de usuário excluído com sucesso!");
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
+
     // Atualizar
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarUsuario(@PathVariable Integer id, @RequestBody Usuario Usuario) {
-        Usuario UsuarioAtualizado = usuarioService.atualizarUsuario(id, Usuario);
+        Usuario UsuarioAtualizado = usuarioService.atualizar(id, Usuario);
 
         if (UsuarioAtualizado == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -67,6 +63,21 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioAtualizado);
     }
 
+    // Deletar
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarUsuario(@PathVariable Integer id) {
+        Usuario deletado = usuarioService.deletar(id);
+
+        if (deletado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Não foi possível excluir, usuário não foi encontrado.");
+        }
+
+        return ResponseEntity.ok("Tipo de usuário excluído com sucesso!");
+    }
 }
+
+
+
 
 
