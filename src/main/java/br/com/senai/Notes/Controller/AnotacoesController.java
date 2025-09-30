@@ -52,7 +52,7 @@ public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody Anotacoes anota
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Não foi possível excluir, anotação não foi encontrado.");
         }
-
+        // Oi
         return ResponseEntity.ok("Tipo de anotação excluído com sucesso!");
     }
 
