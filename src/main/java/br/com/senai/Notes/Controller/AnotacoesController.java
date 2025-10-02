@@ -56,7 +56,7 @@ public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody Anotacoes anota
         return ResponseEntity.ok("Tipo de anotação excluído com sucesso!");
     }
 
-    @PutMapping  ("/{id}")
+    @PutMapping  ("/buscarId/{id}")
     public ResponseEntity<?> atualizarAnotacoes(@PathVariable Integer id, @RequestBody Anotacoes Anotacoes) {
         Anotacoes AnotacoesAtualizado = anotacoesService.atualizarAnotacoes(id, Anotacoes);
 
@@ -67,9 +67,9 @@ public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody Anotacoes anota
 
         return ResponseEntity.ok(AnotacoesAtualizado);
     }
-    @GetMapping ("/{Email}")
-    public ResponseEntity<?> AnotacaoPorEmail(@PathVariable String Email) {
-       Anotacoes anotacoes = (Anotacoes) anotacoesService.AnotacaoPorEmail(Email);
+    @GetMapping ("/buscarEmail/{Email}")
+    public ResponseEntity<?> AnotacaoEmail(@PathVariable String Email) {
+       List <Anotacoes> anotacoes =  anotacoesService.AnotacaoPorEmail(Email);
 
         if (anotacoes == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

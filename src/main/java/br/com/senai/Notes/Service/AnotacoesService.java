@@ -55,7 +55,7 @@ public class AnotacoesService {
         return anotacoesRepository.save(tExistente);
     }
 
-    public List<Usuario> AnotacaoPorEmail(String email) {
+    public List<Anotacoes> AnotacaoPorEmail(String email) {
         return anotacoesRepository.findByUsuarioEmail(email);
     }
 

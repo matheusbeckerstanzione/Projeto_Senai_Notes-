@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface AnotacoesRepository extends JpaRepository<Anotacoes, Integer> {
-    List<Usuario> findByUsuarioEmail(String email);
+    List<Anotacoes> findByUsuarioEmail(String email);
 }
 
 

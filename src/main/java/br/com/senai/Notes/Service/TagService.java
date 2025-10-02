@@ -7,6 +7,7 @@ import br.com.senai.Notes.model.Tag;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -25,6 +26,8 @@ public class TagService {
     Tag tag = new Tag();
 
     tag.setNomeCompleto(dto.getNomeCompleto());
+    tag.setDatacriacao(OffsetDateTime.now());
+    tag.setDataedicao(OffsetDateTime.now());
 
         return tagRepository.save(tag);
     }

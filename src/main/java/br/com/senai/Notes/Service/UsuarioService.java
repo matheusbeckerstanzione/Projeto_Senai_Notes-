@@ -1,10 +1,12 @@
 package br.com.senai.Notes.Service;
 
+import br.com.senai.Notes.dtos.CadastrarUsuarioDto;
 import br.com.senai.Notes.model.Usuario;
 import br.com.senai.Notes.Repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -28,14 +30,22 @@ public class UsuarioService {
         return UsuarioRepository.findById(id).orElse(null);
     }
 
-    public Usuario cadastrar(Usuario t) {
+    public Usuario cadastrar(CadastrarUsuarioDto t) {
 
         String senhaCriptografada = passwordEncoder.encode(t.getSenha());
 
         // Substitui a senha original pelo hash gerado
         t.setSenha(senhaCriptografada);
 
-        return UsuarioRepository.save(t);
+        Usuario novoUsuario = new Usuario();
+
+        novoUsuario.setEmail(t.getEmail());
+        novoUsuario.setSenha(t.getSenha());
+        novoUsuario.setNomeCompleto(t.getNomeCompleto());
+
+
+
+        return UsuarioRepository.save(novoUsuario);
     }
 
     public Usuario atualizar(Integer id, Usuario tNovo) {

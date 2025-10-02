@@ -1,6 +1,7 @@
 package br.com.senai.Notes.Controller;
 
 import br.com.senai.Notes.Service.UsuarioService;
+import br.com.senai.Notes.dtos.CadastrarUsuarioDto;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,9 @@ public class UsuarioController {
 
     // Inserir Novo
     @PostMapping
-    public ResponseEntity<Usuario> inserirUsuario(@RequestBody Usuario Usuario) {
-        Usuario novoUsuario = usuarioService.cadastrar(Usuario);
+    public ResponseEntity<Usuario> inserirUsuario(@RequestBody CadastrarUsuarioDto t) {
+
+        Usuario novoUsuario = usuarioService.cadastrar(t);
 
         if (novoUsuario == null) {
             return ResponseEntity.badRequest().build();
