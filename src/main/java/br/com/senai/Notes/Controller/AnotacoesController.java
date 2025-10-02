@@ -1,6 +1,7 @@
 package br.com.senai.Notes.Controller;
 
 import br.com.senai.Notes.Service.AnotacoesService;
+import br.com.senai.Notes.dtos.CadastrarAnotacoesDto;
 import br.com.senai.Notes.model.Anotacoes;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,9 @@ public class AnotacoesController {
 }
 
 @PostMapping
-public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody Anotacoes anotacoes) {
-    anotacoes = anotacoesService.cadastrarAnotacoes(anotacoes);
-    return ResponseEntity.status(HttpStatus.CREATED).body(anotacoes);
+public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody CadastrarAnotacoesDto anotacoes) {
+    Anotacoes DTO = anotacoesService.cadastrarAnotacoes(anotacoes);
+    return ResponseEntity.status(HttpStatus.CREATED).body(DTO);
 
     }
 

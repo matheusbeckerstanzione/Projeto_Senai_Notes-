@@ -34,7 +34,6 @@ public class UsuarioService {
 
         String senhaCriptografada = passwordEncoder.encode(t.getSenha());
 
-        // Substitui a senha original pelo hash gerado
         t.setSenha(senhaCriptografada);
 
         Usuario novoUsuario = new Usuario();

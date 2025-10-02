@@ -1,26 +1,50 @@
 package br.com.senai.Notes.Service;
 
 import br.com.senai.Notes.Repository.AnotacoesRepository;
+import br.com.senai.Notes.Repository.TagRepository;
+import br.com.senai.Notes.Repository.UsuarioRepository;
+import br.com.senai.Notes.dtos.CadastrarAnotacoesDto;
 import br.com.senai.Notes.model.Anotacoes;
 import br.com.senai.Notes.model.Tag;
 import br.com.senai.Notes.model.Usuario;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
 public class AnotacoesService {
     private final AnotacoesRepository anotacoesRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final TagRepository tagRepository;
 
-    public AnotacoesService(AnotacoesRepository repo) {
+    public AnotacoesService(AnotacoesRepository repo, UsuarioRepository usuarioRepository, TagRepository tagRepository) {
         this.anotacoesRepository = repo;
+        this.usuarioRepository = usuarioRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<Anotacoes> listarTodos() {
         return anotacoesRepository.findAll();
     }
 
-    public Anotacoes cadastrarAnotacoes(Anotacoes anotacoes) {
+    public Anotacoes cadastrarAnotacoes(CadastrarAnotacoesDto DTO) {
+
+        Usuario u = usuarioRepository.findById(DTO.getUsuario_id()).orElse(null);
+
+        Tag t = tagRepository.findById(DTO.getTag_id()).orElse(null);
+
+        Anotacoes anotacoes = new Anotacoes();
+
+        anotacoes.setDescricao(DTO.getDescricao());
+        anotacoes.setTitulo(DTO.getTitulo());
+        anotacoes.setArquivarNotas(DTO.getArquivar_notas());
+        anotacoes.setImagem_url(DTO.getImagem_url());
+        anotacoes.setDataCriacao(OffsetDateTime.now());
+        anotacoes.setDataEdicao(OffsetDateTime.now());
+        anotacoes.setUsuario(u);
+        anotacoes.setIdTag(t);
+
         return anotacoesRepository.save(anotacoes);
     }
 
