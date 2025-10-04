@@ -6,12 +6,13 @@ import br.com.senai.Notes.Service.UsuarioService;
 import br.com.senai.Notes.dtos.CadastroTagDTO;
 import br.com.senai.Notes.model.Tag;
 import br.com.senai.Notes.model.Usuario;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/api/tag")
 public class TagController {

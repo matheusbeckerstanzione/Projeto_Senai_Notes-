@@ -25,7 +25,7 @@ public class TagService {
     public Tag cadastrarTag(CadastroTagDTO dto){
     Tag tag = new Tag();
 
-    tag.setNomeCompleto(dto.getNomeCompleto());
+    tag.setTitulo(dto.getTitulo());
     tag.setDatacriacao(OffsetDateTime.now());
     tag.setDataedicao(OffsetDateTime.now());
 
@@ -51,7 +51,7 @@ public class TagService {
             return null;
         }
 
-        tExistente.setNomeCompleto(tNovo.getNomeCompleto());
+        tExistente.setTitulo(tNovo.getTitulo());
 
         return tagRepository.save(tExistente);
     }

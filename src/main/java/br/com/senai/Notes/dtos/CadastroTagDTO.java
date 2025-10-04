@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CadastroTagDTO {
     private Integer id;
-    private String nomeCompleto;
+    private String titulo;
     // TODO: Trocar para DTO de Usuario
     private Usuario usuario;
 

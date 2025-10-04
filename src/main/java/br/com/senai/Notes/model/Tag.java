@@ -27,8 +27,8 @@ public class Tag {
     @Column(name = "tag_id", nullable = false)
     private Integer TagId;
 
-    @Column(name = "nomeCompleto", nullable = true, columnDefinition = "TEXT")
-    private String nomeCompleto;
+    @Column(name = "titulo", nullable = true, columnDefinition = "TEXT")
+    private String titulo;
 
     @Column(name = "data_edicao", nullable = false)
     private OffsetDateTime dataedicao;

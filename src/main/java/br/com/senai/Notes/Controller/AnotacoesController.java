@@ -4,12 +4,14 @@ import br.com.senai.Notes.Service.AnotacoesService;
 import br.com.senai.Notes.dtos.CadastrarAnotacoesDto;
 import br.com.senai.Notes.model.Anotacoes;
 import br.com.senai.Notes.model.Usuario;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/api/anotacoes")
 public class AnotacoesController {
@@ -27,7 +29,7 @@ public class AnotacoesController {
 
 @PostMapping
 public ResponseEntity<Anotacoes> cadastrarAnotacoes(@RequestBody CadastrarAnotacoesDto anotacoes) {
-    Anotacoes DTO = anotacoesService.cadastrarAnotacoes(anotacoes);
+    Anotacoes DTO = anotacoesService.cadastrar(anotacoes);
     return ResponseEntity.status(HttpStatus.CREATED).body(DTO);
 
     }

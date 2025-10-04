@@ -32,14 +32,14 @@ public class Usuario implements UserDetails{
     @Column(name = "usuario_id", nullable = false)
     private Integer UsuarioId;
 
-    @Column(name = "nomeCompleto", nullable = false, columnDefinition = "TEXT")
-    private String nomeCompleto;
+    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+    private String name;
 
     @Column(name = "email", nullable = false, columnDefinition = "TEXT", unique = true)
     private String email;
 
-    @Column(name = "senha", nullable = false, columnDefinition = "TEXT")
-    private String senha;
+    @Column(name = "password", nullable = false, columnDefinition = "TEXT")
+    private String password;
 
 
     @Override
@@ -51,7 +51,7 @@ public class Usuario implements UserDetails{
     @Override
     @JsonIgnore
     public String getPassword() {
-        return senha;
+        return password;
     }
 
     @Override

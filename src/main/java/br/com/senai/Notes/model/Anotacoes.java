@@ -52,6 +52,6 @@ public class Anotacoes {
     @ManyToOne(fetch = FetchType.EAGER)
 
     @JoinColumn(name = "tag_id")
-    private Tag idTag;
+    private Tag tag;
 
 }

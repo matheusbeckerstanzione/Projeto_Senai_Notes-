@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class CadastrarUsuarioDto {
 
-        private String nomeCompleto;
+        private String name;
         // TODO: Trocar para DTO de Usuario
         private String email;
-        private String senha;
+        private String password;
 
 
 

@@ -32,15 +32,15 @@ public class UsuarioService {
 
     public Usuario cadastrar(CadastrarUsuarioDto t) {
 
-        String senhaCriptografada = passwordEncoder.encode(t.getSenha());
+        String senhaCriptografada = passwordEncoder.encode(t.getPassword());
 
-        t.setSenha(senhaCriptografada);
+        t.setPassword(senhaCriptografada);
 
         Usuario novoUsuario = new Usuario();
 
         novoUsuario.setEmail(t.getEmail());
-        novoUsuario.setSenha(t.getSenha());
-        novoUsuario.setNomeCompleto(t.getNomeCompleto());
+        novoUsuario.setPassword(t.getPassword());
+        novoUsuario.setName(t.getName());
 
 
 
@@ -55,8 +55,8 @@ public class UsuarioService {
         }
 
         tExistente.setEmail(tNovo.getEmail());
-        tExistente.setSenha(tNovo.getSenha());
-        tExistente.setNomeCompleto(tNovo.getNomeCompleto());
+        tExistente.setPassword(tNovo.getPassword());
+        tExistente.setName(tNovo.getName());
 
         return UsuarioRepository.save(tExistente);
     }

@@ -12,5 +12,5 @@ public class LoginRequest {
     private String email;
 
     // Campo para receber a senha do usuário.
-    private String senha;
+    private String password;
 }

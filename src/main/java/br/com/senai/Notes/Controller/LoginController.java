@@ -36,7 +36,7 @@ public class LoginController {
     @PostMapping()
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
-        var authToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha());
+        var authToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
         Authentication auth = authenticationManager.authenticate(authToken);
 
         Instant now = Instant.now();

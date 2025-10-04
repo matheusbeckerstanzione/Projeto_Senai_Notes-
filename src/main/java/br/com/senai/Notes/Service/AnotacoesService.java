@@ -28,7 +28,7 @@ public class AnotacoesService {
         return anotacoesRepository.findAll();
     }
 
-    public Anotacoes cadastrarAnotacoes(CadastrarAnotacoesDto DTO) {
+    public Anotacoes cadastrar(CadastrarAnotacoesDto DTO) {
 
         Usuario u = usuarioRepository.findById(DTO.getUsuario_id()).orElse(null);
 
@@ -38,12 +38,12 @@ public class AnotacoesService {
 
         anotacoes.setDescricao(DTO.getDescricao());
         anotacoes.setTitulo(DTO.getTitulo());
-        anotacoes.setArquivarNotas(DTO.getArquivar_notas());
+
         anotacoes.setImagem_url(DTO.getImagem_url());
         anotacoes.setDataCriacao(OffsetDateTime.now());
         anotacoes.setDataEdicao(OffsetDateTime.now());
         anotacoes.setUsuario(u);
-        anotacoes.setIdTag(t);
+        anotacoes.setTag(t);
 
         return anotacoesRepository.save(anotacoes);
     }
@@ -73,7 +73,7 @@ public class AnotacoesService {
         tExistente.setImagem_url(tNovo.getImagem_url());
         tExistente.setDataCriacao(tNovo.getDataCriacao());
         tExistente.setDataEdicao(tNovo.getDataEdicao());
-        tExistente.setIdTag(tNovo.getIdTag());
+        tExistente.setTag(tNovo.getTag());
         tExistente.setUsuario(tNovo.getUsuario());
 
         return anotacoesRepository.save(tExistente);
