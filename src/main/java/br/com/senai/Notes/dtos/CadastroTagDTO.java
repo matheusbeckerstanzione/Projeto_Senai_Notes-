@@ -11,5 +11,6 @@ public class CadastroTagDTO {
     private String titulo;
     // TODO: Trocar para DTO de Usuario
     private Usuario usuario;
+   // private Integer usuarioId;
 
 }

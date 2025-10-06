@@ -1,13 +1,14 @@
 package br.com.senai.Notes.Service;
 
 import br.com.senai.Notes.dtos.CadastrarUsuarioDto;
+import br.com.senai.Notes.dtos.UsuarioListarDTO;
 import br.com.senai.Notes.model.Usuario;
 import br.com.senai.Notes.Repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -22,8 +23,21 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<Usuario> listarTodos() {
-        return UsuarioRepository.findAll();
+    public List<UsuarioListarDTO> listarTodos() {
+      List<Usuario> us = UsuarioRepository.findAll();
+
+      return us.stream()
+              .map(this::converterParaListagemDTO)
+              .collect(Collectors.toList());
+    }
+    private UsuarioListarDTO converterParaListagemDTO(Usuario usuario) {
+        Usuario usuarioDTO = new Usuario();
+
+        usuarioDTO.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuarioDTO.setEmail(usuario.getEmail());
+        usuarioDTO.setName(usuario.getName());
+
+        return usuarioDTO;
     }
 
     public Usuario buscarPorId(Integer id) {

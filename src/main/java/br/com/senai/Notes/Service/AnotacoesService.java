@@ -43,6 +43,7 @@ public class AnotacoesService {
         anotacoes.setDataCriacao(OffsetDateTime.now());
         anotacoes.setDataEdicao(OffsetDateTime.now());
         anotacoes.setUsuario(u);
+        anotacoes.setArquivarNotas("arquivado");
         anotacoes.setTag(t);
 
         return anotacoesRepository.save(anotacoes);
