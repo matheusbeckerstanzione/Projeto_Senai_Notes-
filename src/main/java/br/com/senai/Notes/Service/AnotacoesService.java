@@ -81,6 +81,7 @@ public class AnotacoesService {
     }
 
     public List<Anotacoes> AnotacaoPorEmail(String email) {
+
         return anotacoesRepository.findByUsuarioEmail(email);
     }
 

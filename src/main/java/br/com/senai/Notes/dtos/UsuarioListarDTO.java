@@ -8,6 +8,7 @@ import java.time.OffsetDateTime;
 @Setter
 public class UsuarioListarDTO {
 
+    private Integer id;
     private String email;
     private String password;
     private String name;

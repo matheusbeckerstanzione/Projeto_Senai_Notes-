@@ -31,8 +31,8 @@ public class UsuarioService {
               .collect(Collectors.toList());
     }
 
-    public List<UsuarioListarDTO> findByEmail(String email) {
-
+    public Usuario findByEmail(String email) {
+        return UsuarioRepository.findByEmail(email).orElse(null);
 
     }
 

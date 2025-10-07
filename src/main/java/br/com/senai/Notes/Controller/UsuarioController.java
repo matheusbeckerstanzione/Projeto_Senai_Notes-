@@ -74,6 +74,19 @@ public class UsuarioController {
 
         return ResponseEntity.ok("Tipo de usuário excluído com sucesso!");
     }
+
+    @GetMapping("/{Email}")
+    public ResponseEntity<?> buscarUsuarioPorEmail(@PathVariable String Email) {
+
+        Usuario usuario = usuarioService.findByEmail(Email);
+
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Não foi posssivel encontrar o usuario por email.");
+        }
+
+        return ResponseEntity.ok(usuario);
+    }
 }
 
 
