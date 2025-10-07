@@ -1,6 +1,9 @@
 package br.com.senai.Notes.Controller;
 
+import br.com.senai.Notes.Service.UsuarioService;
 import br.com.senai.Notes.dtos.LoginRequest;
+import br.com.senai.Notes.dtos.LoginResponseDTO;
+import br.com.senai.Notes.dtos.UsuarioListarDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,10 +28,13 @@ public class LoginController {
     private final AuthenticationManager authenticationManager;
     private final JwtEncoder jwtEncoder;
 
+    private final UsuarioService usuarioService;
 
-    public LoginController(AuthenticationManager authenticationManager, JwtEncoder jwtEncoder) {
+
+    public LoginController(AuthenticationManager authenticationManager, JwtEncoder jwtEncoder, UsuarioService usuarioService) {
         this.authenticationManager = authenticationManager;
         this.jwtEncoder = jwtEncoder;
+        this.usuarioService = usuarioService;
     }
 
 
@@ -48,7 +54,7 @@ public class LoginController {
                 .expiresAt(now.plusSeconds(validade))
                 .subject(auth.getName())
                 .claim("roles", auth.getAuthorities())
-                .build();
+                  .build();
 
         // 6. Define o cabeçalho do token, especificando o algoritmo de assinatura.
         JwsHeader jwsHeader = JwsHeader.with(MacAlgorithm.HS256).build();
@@ -60,4 +66,16 @@ public class LoginController {
         // 8. Retorna o token gerado para o cliente com um status 200 OK.
         return ResponseEntity.ok(token);
     }
-}
+
+    @PostMapping()
+    public ResponseEntity<?> login(@RequestBody LoginResponseDTO loginRequest) {
+        // ...
+
+        // Buscamos o usuário ANTES de validar a senha.
+        UsuarioListarDTO usuario = usuarioService.buscarPorEmailDTO(loginRequest.getEmail());
+
+        // ... o resto da lógica virá aqui
+    }
+
+
+    }

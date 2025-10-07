@@ -2,6 +2,7 @@ package br.com.senai.Notes.Controller;
 
 import br.com.senai.Notes.Service.UsuarioService;
 import br.com.senai.Notes.dtos.CadastrarUsuarioDto;
+import br.com.senai.Notes.dtos.UsuarioListarDTO;
 import br.com.senai.Notes.model.Usuario;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,10 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuario() {
-        List<Usuario> Usuario = usuarioService.listarTodos();
-        return ResponseEntity.ok(Usuario);}
+    public ResponseEntity<List<UsuarioListarDTO>> listarUsuario() {
+        List<UsuarioListarDTO> Usuario = usuarioService.listarTodos();
+        return ResponseEntity.ok(Usuario);
+    }
 
     // Buscar por ID
     @GetMapping("/{id}")

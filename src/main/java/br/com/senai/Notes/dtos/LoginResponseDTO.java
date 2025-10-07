@@ -1,5 +1,5 @@
 package br.com.senai.Notes.dtos;
 
-public record LoginResponseDTO (String token, ListarUsuarioDTO usuarioDTO) {
+public record LoginResponseDTO (String token, UsuarioListarDTO usuarioDTO) {
 
 }

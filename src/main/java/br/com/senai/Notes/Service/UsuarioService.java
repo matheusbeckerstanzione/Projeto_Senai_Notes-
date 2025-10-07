@@ -30,8 +30,14 @@ public class UsuarioService {
               .map(this::converterParaListagemDTO)
               .collect(Collectors.toList());
     }
+
+    public List<UsuarioListarDTO> findByEmail(String email) {
+
+
+    }
+
     private UsuarioListarDTO converterParaListagemDTO(Usuario usuario) {
-        Usuario usuarioDTO = new Usuario();
+        UsuarioListarDTO usuarioDTO = new UsuarioListarDTO();
 
         usuarioDTO.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioDTO.setEmail(usuario.getEmail());
