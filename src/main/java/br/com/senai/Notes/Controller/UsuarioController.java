@@ -2,9 +2,11 @@ package br.com.senai.Notes.Controller;
 
 import br.com.senai.Notes.Service.UsuarioService;
 import br.com.senai.Notes.dtos.CadastrarUsuarioDto;
+import br.com.senai.Notes.dtos.ResetSenhaDTO;
 import br.com.senai.Notes.dtos.UsuarioListarDTO;
 import br.com.senai.Notes.model.Usuario;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +89,13 @@ public class UsuarioController {
 
         return ResponseEntity.ok(usuario);
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ResetSenhaDTO resetarSenhaDTO) {
+        usuarioService.recuperarSenha(resetarSenhaDTO.getEmail());
+        return ResponseEntity.ok("Se um usuário com este e-mail existir, uma nova senha será enviada.");
+    }
+
 }
 
 

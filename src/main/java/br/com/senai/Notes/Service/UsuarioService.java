@@ -4,6 +4,7 @@ import br.com.senai.Notes.dtos.CadastrarUsuarioDto;
 import br.com.senai.Notes.dtos.UsuarioListarDTO;
 import br.com.senai.Notes.model.Usuario;
 import br.com.senai.Notes.Repository.UsuarioRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,28 @@ public class UsuarioService {
 
     private final UsuarioRepository UsuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
 
     public UsuarioService(UsuarioRepository
-                                  UsuarioRepository, PasswordEncoder passwordEncoder) {
+                                  UsuarioRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.UsuarioRepository = UsuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
+
+    public void recuperarSenha(String email) {
+        UsuarioRepository.findByEmail(email).ifPresent(usuario -> {
+            String novaSenha = RandomStringUtils.randomAlphanumeric(10);
+            String senhaCodificada = passwordEncoder.encode(novaSenha);
+            usuario.setPassword(senhaCodificada);
+            UsuarioRepository.save(usuario);
+            emailService.enviarEmail(usuario.getEmail(), novaSenha);
+        });
+    }
+
+    // ... outros métodos do serviço
+
 
     public List<UsuarioListarDTO> listarTodos() {
       List<Usuario> us = UsuarioRepository.findAll();
